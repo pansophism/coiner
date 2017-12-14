@@ -49,13 +49,13 @@ defmodule Commandline.CLI do
 
     TableRex.Table.new(Enum.take(rows, n), Keyword.keys(mapping))
         |> TableRex.Table.put_column_meta(0, color: :blue)
-        |> TableRex.Table.put_column_meta(1, color: :green)
+        |> TableRex.Table.put_column_meta(1, color: :magenta)
         |> TableRex.Table.put_column_meta(2, color: :yellow)
         |> TableRex.Table.put_column_meta(3, color: :cyan)
         |> TableRex.Table.put_column_meta(4, color: set_color)
         |> TableRex.Table.put_column_meta(5, color: set_color)
         |> TableRex.Table.put_column_meta(6, color: set_color)
-        |> TableRex.Table.put_column_meta(7, color: :blue)
+        |> TableRex.Table.put_column_meta(7, color: :magenta)
         |> TableRex.Table.render!
         |> IO.puts
 
