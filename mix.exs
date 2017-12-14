@@ -8,14 +8,14 @@ defmodule Coiner.Mixfile do
      escript: [main_module: Commandline.CLI],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger, :httpotion, :table_rex]]
   end
 
   # Dependencies can be Hex packages:
@@ -28,6 +28,11 @@ defmodule Coiner.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:cli_spinners, "~> 0.1.0"}]
+    [{:cli_spinners, "~> 0.1.0"},
+    {:httpotion, "~> 3.0.2"},
+    {:bunt, "~> 0.1.0"},
+    {:table, "~> 0.0.5"},
+    {:table_rex, "~> 0.10"},
+    {:poison, "~> 2.0"}]
   end
 end
