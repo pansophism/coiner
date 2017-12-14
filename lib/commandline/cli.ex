@@ -25,35 +25,35 @@ defmodule Commandline.CLI do
 
     b = Poison.decode!(response.body)
 
-    header = ["name", "price_usd", "24h_volume_usd",
-    "percent_change_1h", "percent_change_24h", "percent_change_7d",
-    "max_supply"]
+    mapping = ["rank": "rank", "name": "name", "price": "price_usd", "vol_24h": "24h_volume_usd",
+        "1h change": "percent_change_1h", "24h change": "percent_change_24h",
+        "week change": "percent_change_7d", "cap": "max_supply"]
 
     rows = Enum.map(b,
-        fn row -> Enum.map(header,
+        fn row -> Enum.map(Keyword.values(mapping),
             fn field ->
-                v = Map.get(row, field)
                 cond do
                     field == "24h_volume_usd" ->
-                        {intVal, _} = Integer.parse(v)
+                        {intVal, _} = Integer.parse(Map.get(row, field))
                         r = intVal / 1000000
                         Float.to_string(r) <> "M"
                     field =~ "percent" ->
-                        v <> "%"
+                        Map.get(row, field) <> "%"
                     true ->
-                        v
+                        Map.get(row, field)
                 end
             end)
         end)
 
-    TableRex.Table.new(Enum.take(rows, n), header)
-        |> TableRex.Table.put_column_meta(0, color: :yellow)
+    TableRex.Table.new(Enum.take(rows, n), Keyword.keys(mapping))
+        |> TableRex.Table.put_column_meta(0, color: :blue)
         |> TableRex.Table.put_column_meta(1, color: :green)
         |> TableRex.Table.put_column_meta(2, color: :yellow)
         |> TableRex.Table.put_column_meta(3, color: :green)
         |> TableRex.Table.put_column_meta(4, color: :green)
         |> TableRex.Table.put_column_meta(5, color: :cyan)
         |> TableRex.Table.put_column_meta(6, color: :blue)
+        |> TableRex.Table.put_column_meta(7, color: :blue)
         |> TableRex.Table.render!
         |> IO.puts
 
