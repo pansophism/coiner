@@ -1,0 +1,2 @@
+defmodule Coiner do
+end
