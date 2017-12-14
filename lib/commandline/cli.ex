@@ -44,15 +44,17 @@ defmodule Commandline.CLI do
                 end
             end)
         end)
+    set_color = fn(text, v) ->
+        if !String.starts_with?(v, "-"), do: [:green, text], else: [:red, text] end
 
     TableRex.Table.new(Enum.take(rows, n), Keyword.keys(mapping))
         |> TableRex.Table.put_column_meta(0, color: :blue)
         |> TableRex.Table.put_column_meta(1, color: :green)
         |> TableRex.Table.put_column_meta(2, color: :yellow)
-        |> TableRex.Table.put_column_meta(3, color: :green)
-        |> TableRex.Table.put_column_meta(4, color: :green)
-        |> TableRex.Table.put_column_meta(5, color: :cyan)
-        |> TableRex.Table.put_column_meta(6, color: :blue)
+        |> TableRex.Table.put_column_meta(3, color: :cyan)
+        |> TableRex.Table.put_column_meta(4, color: set_color)
+        |> TableRex.Table.put_column_meta(5, color: set_color)
+        |> TableRex.Table.put_column_meta(6, color: set_color)
         |> TableRex.Table.put_column_meta(7, color: :blue)
         |> TableRex.Table.render!
         |> IO.puts
