@@ -48,14 +48,14 @@ defmodule Commandline.CLI do
         if !String.starts_with?(v, "-"), do: [:green, text], else: [:red, text] end
 
     TableRex.Table.new(Enum.take(rows, n), Keyword.keys(mapping))
-        |> TableRex.Table.put_column_meta(0, color: :blue)
+        |> TableRex.Table.put_column_meta(0, color: :blue, align: :center)
         |> TableRex.Table.put_column_meta(1, color: :magenta)
-        |> TableRex.Table.put_column_meta(2, color: :yellow)
+        |> TableRex.Table.put_column_meta(2, color: :yellow, align: :left)
         |> TableRex.Table.put_column_meta(3, color: :cyan)
-        |> TableRex.Table.put_column_meta(4, color: set_color)
-        |> TableRex.Table.put_column_meta(5, color: set_color)
-        |> TableRex.Table.put_column_meta(6, color: set_color)
-        |> TableRex.Table.put_column_meta(7, color: :magenta)
+        |> TableRex.Table.put_column_meta(4, color: set_color, align: :right)
+        |> TableRex.Table.put_column_meta(5, color: set_color, align: :right)
+        |> TableRex.Table.put_column_meta(6, color: set_color, align: :right)
+        |> TableRex.Table.put_column_meta(7, color: :magenta, align: :left)
         |> TableRex.Table.render!
         |> IO.puts
 
